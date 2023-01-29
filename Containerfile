@@ -26,7 +26,7 @@ rpm-ostree install libva-intel-driver intel-media-driver
 
 # Add nvidia drivers
 RUN wget https://negativo17.org/repos/fedora-nvidia.repo -O /etc/yum.repos.d/fedora-nvidia.repo && \
-rpm-ostree override remove nvidia-gpu-firmware --install nvidia-driver --install nvidia-driver-cuda --install nvidia-settings &&
+rpm-ostree override remove nvidia-gpu-firmware --install nvidia-driver --install nvidia-driver-cuda --install nvidia-settings && \
 rpm-ostree kargs --append=modprobe.blacklist=nouveau
 
 # Add kde basics
