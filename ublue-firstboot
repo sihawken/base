@@ -73,23 +73,14 @@ if [ "$?" != 0 ] ; then
 fi
 echo "40"
 
-echo "# Installing OpenOffice"
-/usr/bin/flatpak install --user --noninteractive flathub nl.openoffice.bluefish
+echo "# Installing OnlyOffice"
+/usr/bin/flatpak install --user --noninteractive flathub org.onlyoffice.desktopeditors
 if [ "$?" != 0 ] ; then
         zenity --error \
-          --text="Installing LibreOffice Failed"
+          --text="Installing OnlyOffice Failed"
         exit 1
 fi
 echo "70"
-
-echo "# Installing DejaDup Backup"
-/usr/bin/flatpak install --user --noninteractive flathub org.gnome.DejaDup
-if [ "$?" != 0 ] ; then
-        zenity --error \
-          --text="Installing DejaDup Failed"
-        exit 1
-fi
-echo "80"
 
 echo "# Installing Font Downloader"
 /usr/bin/flatpak install --user --noninteractive flathub org.gustavoperedo.FontDownloader
