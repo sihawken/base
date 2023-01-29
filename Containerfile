@@ -32,6 +32,9 @@ rpm-ostree kargs --append=modprobe.blacklist=nouveau
 # Add kde basics
 RUN rpm-ostree install latte-dock
 
+# Add gnome-software
+RUN rpm-ostree install gnome-software
+
 # Commit container image
 RUN rm var/log/akmods/akmods.log && \
 ostree container commit

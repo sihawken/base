@@ -19,15 +19,6 @@ if [ "$?" != 0 ] ; then
 fi
 echo "3"
 
-echo "# Enabling Flathub Repository"
-/usr/bin/flatpak remote-add --user --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-if [ "$?" != 0 ] ; then
-        zenity --error \
-          --text="Adding Flathub Repo Failed"
-        exit 1
-fi
-echo "5"
-
 echo "# Replacing Fedora Flatpaks with Flathub Ones (this may take a while)"
 /usr/bin/flatpak install --user --noninteractive org.gnome.Platform//43
 /usr/bin/flatpak install --user --noninteractive --reinstall flathub $(flatpak list --app-runtime=org.fedoraproject.Platform --columns=application | tail -n +1 )
