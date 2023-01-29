@@ -11,8 +11,17 @@ RUN rpm-ostree override remove toolbox firefox firefox-langpacks && \
     sed -i 's/#AutomaticUpdatePolicy.*/AutomaticUpdatePolicy=stage/' /etc/rpm-ostreed.conf && \
     systemctl enable rpm-ostreed-automatic.timer
 
+# Update to the xanmod kernel
+RUN wget https://copr.fedorainfracloud.org/coprs/rmnscnce/kernel-xanmod/repo/fedora-${FEDORA_MAJOR_VERSION}/rmnscnce-kernel-xanmod-fedora-${FEDORA_MAJOR_VERSION}.repo -O /etc/yum.repos.d/rmnscnce-kernel-xanmod-fedora-${FEDORA_MAJOR_VERSION}.repo && \
+    rpm-ostree override remove kernel kernel-modules-extra kernel-core kernel-modules --install kernel-xanmod-edge --install kernel-xanmod-edge-core --install kernel-xanmod-edge-modules
+
 # Install the rpmfusion repositories
 RUN rpm-ostree install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-${FEDORA_MAJOR_VERSION}.noarch.rpm \
 https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-${FEDORA_MAJOR_VERSION}.noarch.rpm
+
+# Replace the media drivers
+RUN rpm-ostree override remove mesa-va-drivers --install mesa-va-drivers-freeworld && \
+rpm-ostree install mesa-vdpau-drivers-freeworld && \
+rpm-ostree install libva-intel-driver intel-media-driver && \
 
 RUN ostree container commit
