@@ -31,4 +31,6 @@ rpm-ostree override remove nvidia-gpu-firmware --install nvidia-driver --install
 # Add kde basics
 RUN rpm-ostree install latte-dock
 
-RUN ostree container commit
+# Commit container image
+RUN rm var/log/akmods/akmods.log && \
+ostree container commit
