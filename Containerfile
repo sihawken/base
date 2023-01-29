@@ -7,7 +7,7 @@ COPY etc /etc
 COPY ublue-firstboot /usr/bin
 
 RUN rpm-ostree override remove toolbox firefox firefox-langpacks && \
-    rpm-ostree install zsh distrobox && \
+    rpm-ostree install zsh neofetch distrobox && \
     sed -i 's/#AutomaticUpdatePolicy.*/AutomaticUpdatePolicy=stage/' /etc/rpm-ostreed.conf && \
     systemctl enable rpm-ostreed-automatic.timer
 
