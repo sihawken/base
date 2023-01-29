@@ -73,17 +73,8 @@ if [ "$?" != 0 ] ; then
 fi
 echo "40"
 
-echo "# Installing Extension Manager"
-/usr/bin/flatpak install --user --noninteractive flathub com.mattjakeman.ExtensionManager
-if [ "$?" != 0 ] ; then
-        zenity --error \
-          --text="Installing Extension Manager Failed"
-        exit 1
-fi
-echo "50"
-
-echo "# Installing LibreOffice"
-/usr/bin/flatpak install --user --noninteractive flathub org.libreoffice.LibreOffice
+echo "# Installing OpenOffice"
+/usr/bin/flatpak install --user --noninteractive flathub nl.openoffice.bluefish
 if [ "$?" != 0 ] ; then
         zenity --error \
           --text="Installing LibreOffice Failed"
