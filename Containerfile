@@ -19,9 +19,13 @@ RUN wget https://copr.fedorainfracloud.org/coprs/rmnscnce/kernel-xanmod/repo/fed
 RUN rpm-ostree install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-${FEDORA_MAJOR_VERSION}.noarch.rpm \
 https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-${FEDORA_MAJOR_VERSION}.noarch.rpm
 
-# Replace the media drivers
+# Replace media drivers
 RUN rpm-ostree override remove mesa-va-drivers --install mesa-va-drivers-freeworld && \
 rpm-ostree install mesa-vdpau-drivers-freeworld && \
-rpm-ostree install libva-intel-driver intel-media-driver && \
+rpm-ostree install libva-intel-driver intel-media-driver
+
+# Add nvidia drivers
+RUN wget https://negativo17.org/repos/fedora-nvidia.repo -O /etc/yum.repos.d/fedora-nvidia.repo && \
+rpm-ostree override remove nvidia-gpu-firmware --install nvidia-driver --install nvidia-driver-cuda --install nvidia-settings
 
 RUN ostree container commit
