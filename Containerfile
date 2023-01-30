@@ -9,7 +9,7 @@ COPY etc /etc
 COPY ublue-firstboot /usr/bin
 
 RUN rpm-ostree override remove toolbox firefox firefox-langpacks && \
-    rpm-ostree install zsh neofetch distrobox && \
+    rpm-ostree install zsh neofetch distrobox zenity && \
     sed -i 's/#AutomaticUpdatePolicy.*/AutomaticUpdatePolicy=stage/' /etc/rpm-ostreed.conf && \
     systemctl enable rpm-ostreed-automatic.timer && \
     rpm-ostree override replace ${KERNEL_REPO}/kernel-${KERNEL_VERSION}.rpm ${KERNEL_REPO}/kernel-core-${KERNEL_VERSION}.rpm ${KERNEL_REPO}/kernel-modules-${KERNEL_VERSION}.rpm ${KERNEL_REPO}/kernel-modules-extra-${KERNEL_VERSION}.rpm && \
