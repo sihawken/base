@@ -11,7 +11,7 @@ until /usr/bin/ping -q -c 1 flathub.org; do sleep 1; done
 echo "00"
 
 echo "# Adding Flathub repository"
-/usr/bin/flatpak remote-add --if-not-exists --user flathub https://flathub.org/repo/flathub.flatpakrepo ||:
+/usr/bin/flatpak remote-add --if-not-exists --system flathub https://flathub.org/repo/flathub.flatpakrepo ||:
 if [ "$?" != 0 ] ; then
         zenity --error \
           --text="Failed to add Flathub as a Flatpak repo."
@@ -37,7 +37,7 @@ fi
 echo "25"
 
 echo "# Installing Firefox"
-/usr/bin/flatpak install --user --noninteractive flathub org.mozilla.firefox
+/usr/bin/flatpak install --system --noninteractive flathub org.mozilla.firefox
 if [ "$?" != 0 ] ; then
         zenity --error \
           --text="Installing Firefox failed"
@@ -46,7 +46,7 @@ fi
 echo "30"
 
 echo "# Installing Thunderbird"
-/usr/bin/flatpak install --user --noninteractive flathub org.mozilla.Thunderbird
+/usr/bin/flatpak install --system --noninteractive flathub org.mozilla.Thunderbird
 if [ "$?" != 0 ] ; then
         zenity --error \
           --text="Installing Thunderbird failed"
@@ -55,7 +55,7 @@ fi
 echo "40"
 
 echo "# Installing OnlyOffice"
-/usr/bin/flatpak install --user --noninteractive flathub org.onlyoffice.desktopeditors
+/usr/bin/flatpak install --system --noninteractive flathub org.onlyoffice.desktopeditors
 if [ "$?" != 0 ] ; then
         zenity --error \
           --text="Installing OnlyOffice failed"
@@ -64,7 +64,7 @@ fi
 echo "70"
 
 echo "# Installing Font Downloader"
-/usr/bin/flatpak install --user --noninteractive flathub org.gustavoperedo.FontDownloader
+/usr/bin/flatpak install --system --noninteractive flathub org.gustavoperedo.FontDownloader
 if [ "$?" != 0 ] ; then
         zenity --error \
           --text="Installing FontDownloader failed"
@@ -73,7 +73,7 @@ fi
 echo "85"
 
 echo "# Installing Flatseal"
-/usr/bin/flatpak install --user --noninteractive flathub com.github.tchx84.Flatseal
+/usr/bin/flatpak install --system --noninteractive flathub com.github.tchx84.Flatseal
 if [ "$?" != 0 ] ; then
         zenity --error \
           --text="Installing Flatseal failed"
@@ -82,7 +82,7 @@ fi
 echo "90"
 
 echo "# Installing Celluloid Media Player"
-/usr/bin/flatpak install --user --noninteractive flathub io.github.celluloid_player.Celluloid
+/usr/bin/flatpak install --system --noninteractive flathub io.github.celluloid_player.Celluloid
 if [ "$?" != 0 ] ; then
         zenity --error \
           --text="Installing Celluloid failed"
