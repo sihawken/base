@@ -17,4 +17,5 @@ RUN rpm-ostree override remove toolbox firefox firefox-langpacks && \
     rpm-ostree install latte-dock && \
     rpm-ostree install gnome-software && \
     wget https://negativo17.org/repos/fedora-nvidia.repo -O /etc/yum.repos.d/fedora-nvidia.repo && \
+    rpm-ostree override remove nvidia-gpu-firmware --install nvidia-driver --install nvidia-driver-cuda --install nvidia-settings && \
     ostree container commit
