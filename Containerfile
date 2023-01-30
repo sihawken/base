@@ -23,6 +23,6 @@ RUN rpm-ostree override remove toolbox firefox firefox-langpacks && \
     rpm-ostree install latte-dock && \
     rpm-ostree install gnome-software && \
     rm var/log/akmods/akmods.log && \
-    /usr/bin/dracut --tmpdir /tmp/ --no-hostonly --kver ${KERNEL_VERSION} --reproducible -v --add ostree -f /tmp/initramfs2.img && \
+    /usr/bin/dracut --tmpdir /tmp/ --no-hostonly --kver ${KERNEL_VERSION} --reproducible --add ostree -f /tmp/initramfs2.img && \
     mv /tmp/initramfs2.img /lib/modules/${KERNEL_VERSION}/initramfs.img && \
     ostree container commit
