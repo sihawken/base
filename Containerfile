@@ -16,6 +16,7 @@ RUN rpm-ostree override remove toolbox firefox firefox-langpacks && \
     rpm-ostree install ${KERNEL_REPO}/kernel-devel-${KERNEL_VERSION}.rpm ${KERNEL_REPO}/kernel-devel-matched-${KERNEL_VERSION}.rpm && \
     /usr/bin/dracut --tmpdir /tmp/ --no-hostonly --kver ${KERNEL_VERSION} --reproducible --add ostree -f /tmp/initramfs2.img && \
     mv /tmp/initramfs2.img /lib/modules/${KERNEL_VERSION}/initramfs.img && \
+    rm -rf /tmp/ && \
     rpm-ostree install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-${FEDORA_MAJOR_VERSION}.noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-${FEDORA_MAJOR_VERSION}.noarch.rpm && \
     rpm-ostree override remove mesa-va-drivers && \
     rpm-ostree install libva-intel-driver intel-media-driver && \
