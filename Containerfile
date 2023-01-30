@@ -36,5 +36,6 @@ RUN rpm-ostree override remove toolbox firefox firefox-langpacks && \
     rpm-ostree install libva-intel-driver intel-media-driver && \
     rpm-ostree install latte-dock && \
     rpm-ostree install gnome-software && \
+    rpm-ostree install openrgb && \
     rm -rf var/log/akmods/akmods.log && \
     ostree container commit
