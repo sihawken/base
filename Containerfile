@@ -14,15 +14,13 @@ RUN rpm-ostree override remove toolbox firefox firefox-langpacks && \
     systemctl enable rpm-ostreed-automatic.timer && \
     rpm-ostree override replace ${KERNEL_REPO}/kernel-${KERNEL_VERSION}.rpm ${KERNEL_REPO}/kernel-core-${KERNEL_VERSION}.rpm ${KERNEL_REPO}/kernel-modules-${KERNEL_VERSION}.rpm  ${KERNEL_REPO}/kernel-modules-extra-${KERNEL_VERSION}.rpm &&  \
     rpm-ostree install ${KERNEL_REPO}/kernel-devel-${KERNEL_VERSION}.rpm ${KERNEL_REPO}/kernel-devel-matched-${KERNEL_VERSION}.rpm && \
-    /usr/bin/dracut --tmpdir /tmp/ --no-hostonly --kver ${KERNEL_VERSION} --reproducible --add ostree -f /tmp/initramfs2.img && \
-    mv /tmp/initramfs2.img /lib/modules/${KERNEL_VERSION}/initramfs.img && \
-    rm -rf /tmp/ && \
     rpm-ostree install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-${FEDORA_MAJOR_VERSION}.noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-${FEDORA_MAJOR_VERSION}.noarch.rpm && \
     rpm-ostree override remove mesa-va-drivers && \
     rpm-ostree install libva-intel-driver intel-media-driver && \
     rpm-ostree install latte-dock && \
     rpm-ostree install gnome-software && \
     wget https://negativo17.org/repos/fedora-nvidia.repo -O /etc/yum.repos.d/fedora-nvidia.repo && \
-    rpm-ostree override remove nvidia-gpu-firmware --install nvidia-driver --install nvidia-driver-cuda --install nvidia-settings && \
+    /usr/bin/dracut --tmpdir /tmp/ --no-hostonly --kver ${KERNEL_VERSION} --reproducible --add ostree -f /tmp/initramfs2.img && \
+    mv /tmp/initramfs2.img /lib/modules/${KERNEL_VERSION}/initramfs.img && \
     rm -rf var/log/akmods && \
     ostree container commit
