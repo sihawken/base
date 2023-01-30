@@ -22,7 +22,7 @@ RUN rpm-ostree override remove toolbox firefox firefox-langpacks && \
     rpm-ostree override remove nvidia-gpu-firmware --install nvidia-driver --install nvidia-driver-cuda --install nvidia-settings && \
     rpm-ostree install latte-dock && \
     rpm-ostree install gnome-software && \
-    rm var/log/akmods/akmods.log && \
     /usr/bin/dracut --tmpdir /tmp/ --no-hostonly --kver ${KERNEL_VERSION} --reproducible --add ostree -f /tmp/initramfs2.img && \
     mv /tmp/initramfs2.img /lib/modules/${KERNEL_VERSION}/initramfs.img && \
+    rm var/log/akmods/akmods.log && \
     ostree container commit
