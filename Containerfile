@@ -1,6 +1,7 @@
 ARG FEDORA_MAJOR_VERSION=37
 FROM quay.io/fedora-ostree-desktops/kinoite:${FEDORA_MAJOR_VERSION}
 ARG FEDORA_MAJOR_VERSION
+ARG KERNEL_VERSION=6.0.8-xm1.0.fc37.x86_64 
 
 COPY etc /etc
 
@@ -21,6 +22,6 @@ RUN rpm-ostree override remove toolbox firefox firefox-langpacks && \
     rpm-ostree install latte-dock && \
     rpm-ostree install gnome-software && \
     rm var/log/akmods/akmods.log && \
-    /usr/bin/dracut --tmpdir /tmp/ --no-hostonly --kver $(uname -r) --reproducible -v --add ostree -f /tmp/initramfs2.img && \
-    mv /tmp/initramfs2.img /lib/modules/$(uname -r)/initramfs.img && \
+    /usr/bin/dracut --tmpdir /tmp/ --no-hostonly --kver ${KERNEL_VERSION} --reproducible -v --add ostree -f /tmp/initramfs2.img && \
+    mv /tmp/initramfs2.img /lib/modules/${KERNEL_VERSION}/initramfs.img && \
     ostree container commit
