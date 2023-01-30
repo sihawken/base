@@ -24,5 +24,5 @@ RUN rpm-ostree override remove toolbox firefox firefox-langpacks && \
     rpm-ostree install gnome-software && \
     /usr/bin/dracut --tmpdir /tmp/ --no-hostonly --kver ${KERNEL_VERSION} --reproducible --add ostree -f /tmp/initramfs2.img && \
     mv /tmp/initramfs2.img /lib/modules/${KERNEL_VERSION}/initramfs.img && \
-    rm var/log/akmods/akmods.log && \
+    rm -rf var/log/akmods && \
     ostree container commit
