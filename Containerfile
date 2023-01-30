@@ -4,8 +4,8 @@ FROM quay.io/fedora-ostree-desktops/kinoite:${FEDORA_MAJOR_VERSION} AS nvidia_bu
 ARG FEDORA_MAJOR_VERSION
 
 # Build Nvidia driver
-RUN rpm-ostree install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-${FEDORA_MAJOR_VERSION}.noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-${FEDORA_MAJOR_VERSION}.noarch.rpm && \
-    rpm-ostree install mock xorg-x11-drv-nvidia{,-cuda} binutils \
+RUN wget https://negativo17.org/repos/fedora-nvidia.repo -O /etc/yum.repos.d/fedora-nvidia.repo && \
+    rpm-ostree install mock nvidia-driver nvidia-driver-cuda binutils \
                        kernel-devel-$(rpm -qa kernel --queryformat '%{VERSION}-%{RELEASE}.%{ARCH}') && \
     ln -s /usr/bin/ld.bfd /etc/alternatives/ld && ln -s /etc/alternatives/ld /usr/bin/ld && \
     akmods --force --kernels "$(rpm -qa kernel --queryformat '%{VERSION}-%{RELEASE}.%{ARCH}')"
@@ -26,8 +26,9 @@ RUN rpm-ostree override remove toolbox firefox firefox-langpacks && \
     systemctl enable rpm-ostreed-automatic.timer && \
     rpm-ostree install kernel-devel kernel-devel-matched && \
     rpm-ostree install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-${FEDORA_MAJOR_VERSION}.noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-${FEDORA_MAJOR_VERSION}.noarch.rpm && \
+    wget https://negativo17.org/repos/fedora-nvidia.repo -O /etc/yum.repos.d/fedora-nvidia.repo && \
     KERNEL_VERSION="$(rpm -qa kernel --queryformat '%{VERSION}-%{RELEASE}.%{ARCH}')" && \
-    rpm-ostree install xorg-x11-drv-nvidia{,-cuda} kernel-devel-${KERNEL_VERSION} \
+    rpm-ostree install nvidia-driver nvidia-driver-cuda kernel-devel-${KERNEL_VERSION} \
                        /tmp/nvidia/kmod-nvidia-${KERNEL_VERSION}-*.rpm && \
     ln -s /usr/bin/ld.bfd /etc/alternatives/ld && ln -s /etc/alternatives/ld /usr/bin/ld && \
     rm -rf /tmp/nvidia /var/* && \
