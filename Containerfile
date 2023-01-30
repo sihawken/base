@@ -25,3 +25,5 @@ RUN rpm-ostree override remove toolbox firefox firefox-langpacks && \
     /usr/bin/dracut --tmpdir /tmp/ --no-hostonly --kver ${KERNEL_VERSION} --reproducible -v --add ostree -f /tmp/initramfs2.img && \
     mv /tmp/initramfs2.img /lib/modules/${KERNEL_VERSION}/initramfs.img && \
     ostree container commit
+
+# Last build should have worked, new commit
