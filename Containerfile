@@ -12,7 +12,7 @@ RUN rpm-ostree override remove toolbox firefox firefox-langpacks && \
     rpm-ostree install zsh neofetch distrobox && \
     sed -i 's/#AutomaticUpdatePolicy.*/AutomaticUpdatePolicy=stage/' /etc/rpm-ostreed.conf && \
     systemctl enable rpm-ostreed-automatic.timer && \
-    rpm-ostree override replace ${KERNEL_REPO}/kernel-${KERNEL_VERSION}.rpm ${KERNEL_REPO}/kernel-core-${KERNEL_VERSION}.rpm ${KERNEL_REPO}/kernel-modules-${KERNEL_VERSION}.rpm && \
+    rpm-ostree override remove kernel kernel-modules-extra kernel-core kernel-modules --install ${KERNEL_REPO}/kernel-${KERNEL_VERSION}.rpm --install ${KERNEL_REPO}/kernel-core-${KERNEL_VERSION}.rpm --install ${KERNEL_REPO}/kernel-modules-${KERNEL_VERSION}.rpm --install ${KERNEL_REPO}/kernel-modules-extra-${KERNEL_VERSION}.rpm && \
     rpm-ostree install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-${FEDORA_MAJOR_VERSION}.noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-${FEDORA_MAJOR_VERSION}.noarch.rpm && \
     rpm-ostree override remove mesa-va-drivers --install mesa-va-drivers-freeworld && \
     rpm-ostree install mesa-vdpau-drivers-freeworld && \
