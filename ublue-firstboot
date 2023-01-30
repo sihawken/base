@@ -54,6 +54,15 @@ if [ "$?" != 0 ] ; then
 fi
 echo "40"
 
+echo "# Installing Workspaces"
+/usr/bin/flatpak install --system --noninteractive flathub com.github.devalien.workspaces
+if [ "$?" != 0 ] ; then
+        zenity --error \
+          --text="Installing Workspaces failed"
+        exit 1
+fi
+echo "60"
+
 echo "# Installing OnlyOffice"
 /usr/bin/flatpak install --system --noninteractive flathub org.onlyoffice.desktopeditors
 if [ "$?" != 0 ] ; then
