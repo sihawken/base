@@ -10,7 +10,7 @@ RUN rpm-ostree override remove toolbox firefox firefox-langpacks && \
     rpm-ostree install zsh neofetch distrobox zenity && \
     sed -i 's/#AutomaticUpdatePolicy.*/AutomaticUpdatePolicy=stage/' /etc/rpm-ostreed.conf && \
     systemctl enable rpm-ostreed-automatic.timer && \
-    rpm-ostree install kernel-devel kernel-devel-matched && ''
+    rpm-ostree install kernel-devel kernel-devel-matched && \
     rpm-ostree install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-${FEDORA_MAJOR_VERSION}.noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-${FEDORA_MAJOR_VERSION}.noarch.rpm && \
     rpm-ostree override remove mesa-va-drivers && \
     rpm-ostree install libva-intel-driver intel-media-driver && \
