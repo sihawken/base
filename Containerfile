@@ -1,7 +1,8 @@
 ARG FEDORA_MAJOR_VERSION=37
 FROM quay.io/fedora-ostree-desktops/kinoite:${FEDORA_MAJOR_VERSION}
 ARG FEDORA_MAJOR_VERSION
-ARG KERNEL_VERSION=6.0.8-xm1.0.fc37.x86_64 
+ARG KERNEL_REPO=https://kojipkgs.fedoraproject.org//packages/kernel/6.1.8/200.fc37/x86_64/
+ARG KERNEL_VERSION=6.1.8-200.fc37.x86_64
 
 COPY etc /etc
 
@@ -11,8 +12,7 @@ RUN rpm-ostree override remove toolbox firefox firefox-langpacks && \
     rpm-ostree install zsh neofetch distrobox && \
     sed -i 's/#AutomaticUpdatePolicy.*/AutomaticUpdatePolicy=stage/' /etc/rpm-ostreed.conf && \
     systemctl enable rpm-ostreed-automatic.timer && \
-    wget https://copr.fedorainfracloud.org/coprs/rmnscnce/kernel-xanmod/repo/fedora-${FEDORA_MAJOR_VERSION}/rmnscnce-kernel-xanmod-fedora-${FEDORA_MAJOR_VERSION}.repo -O /etc/yum.repos.d/rmnscnce-kernel-xanmod-fedora-${FEDORA_MAJOR_VERSION}.repo && \
-    rpm-ostree override remove kernel kernel-modules-extra kernel-core kernel-modules --install kernel-xanmod-edge --install kernel-xanmod-edge-core --install kernel-xanmod-edge-modules && \
+    rpm-ostree override replace ${KERNEL_REPO}/kernel-${KERNEL_VERSION}.rpm ${KERNEL_REPO}/kernel-core-${KERNEL_VERSION}.rpm ${KERNEL_REPO}/kernel-modules-${KERNEL_VERSION}.rpm && \
     rpm-ostree install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-${FEDORA_MAJOR_VERSION}.noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-${FEDORA_MAJOR_VERSION}.noarch.rpm && \
     rpm-ostree override remove mesa-va-drivers --install mesa-va-drivers-freeworld && \
     rpm-ostree install mesa-vdpau-drivers-freeworld && \
