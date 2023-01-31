@@ -9,7 +9,7 @@ on:
     branches:
       - main
 env:
-    IMAGE_NAME: kinoite-nvidia-intel-prime
+    IMAGE_NAME: kinoite-msi-stealth-15m
 
     IMAGE_REGISTRY: ghcr.io/${{ github.repository_owner }}
 
