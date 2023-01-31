@@ -6,3 +6,15 @@
 This is a build of kinoite specifically designed to support the MSI Stealth 15m.
 
 Based off of the ublue project (https://github.com/ublue-os/).
+
+After rebasing, set the kargs
+
+```
+rpm-ostree kargs \
+    --append=rd.driver.blacklist=nouveau \
+    --append=modprobe.blacklist=nouveau \
+    --append=nvidia-drm.modeset=1 \
+    --append=nvidia.NVreg_DynamicPowerManagement=0x02 \
+    --append=nvidia.NVreg_PreserveVideoMemoryAllocations=0 \
+    --append=nvidia.NVreg_DynamicPowerManagementVideoMemoryThreshold=200
+```
