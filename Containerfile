@@ -37,5 +37,7 @@ RUN rpm-ostree override remove toolbox firefox firefox-langpacks && \
     rpm-ostree install latte-dock && \
     rpm-ostree install gnome-software && \
     rpm-ostree install openrgb && \
+    wget https://terra.fyralabs.com/terra.repo -O /etc/yum.repos.d/terra.repo && \
+    rpm-ostree install elementary-wallpapers && \
     rm -rf var/log/akmods/akmods.log && \
     ostree container commit
