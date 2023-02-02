@@ -3,41 +3,46 @@ ARG FEDORA_MAJOR_VERSION=37
 FROM quay.io/fedora-ostree-desktops/kinoite:${FEDORA_MAJOR_VERSION} AS nvidia_builder
 ARG FEDORA_MAJOR_VERSION
 
-# Build Nvidia driver
+# Build Nvidia driver kernel module
 RUN wget https://negativo17.org/repos/fedora-nvidia.repo -O /etc/yum.repos.d/fedora-nvidia.repo && \
     rpm-ostree install mock nvidia-driver nvidia-driver-cuda binutils \
                        kernel-devel-$(rpm -qa kernel --queryformat '%{VERSION}-%{RELEASE}.%{ARCH}') && \
     ln -s /usr/bin/ld.bfd /etc/alternatives/ld && ln -s /etc/alternatives/ld /usr/bin/ld && \
     akmods --force --kernels "$(rpm -qa kernel --queryformat '%{VERSION}-%{RELEASE}.%{ARCH}')"
 
-
-FROM quay.io/fedora-ostree-desktops/kinoite:${FEDORA_MAJOR_VERSION}
+FROM quay.io/fedora-ostree-desktops/kinoite:${FEDORA_MAJOR_VERSION} AS system_image
 ARG FEDORA_MAJOR_VERSION
-
+ 
+# Copy the Nvidia driver kernel module from nvidia_builder
 COPY --from=nvidia_builder /var/cache/akmods/nvidia /tmp/nvidia
 
 COPY etc /etc
 
+# Copy the first run zenety script
 COPY ublue-firstboot /usr/bin
 
-RUN rpm-ostree override remove toolbox firefox firefox-langpacks && \
+RUN echo "INSTALLING BASE SYSTEM ----------------------------------------------" && \
+    rpm-ostree override remove toolbox firefox firefox-langpacks && \
     rpm-ostree install zsh neofetch distrobox zenity && \
+    rpm-ostree install kernel-devel kernel-devel-matched && \
     sed -i 's/#AutomaticUpdatePolicy.*/AutomaticUpdatePolicy=stage/' /etc/rpm-ostreed.conf && \
     systemctl enable rpm-ostreed-automatic.timer && \
-    rpm-ostree install kernel-devel kernel-devel-matched && \
-    rpm-ostree install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-${FEDORA_MAJOR_VERSION}.noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-${FEDORA_MAJOR_VERSION}.noarch.rpm && \
+    echo "INSTALLING RPM-FUSION REPOS -----------------------------------------" && \
+    rpm-ostree install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-${FEDORA_MAJOR_VERSION}.noarch.rpm \
+        https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-${FEDORA_MAJOR_VERSION}.noarch.rpm && \
+    echo "INSTALLING FYRALABS TERRA REPO --------------------------------------" && \
+    wget https://terra.fyralabs.com/terra.repo -O /etc/yum.repos.d/terra.repo && \
+    echo "INSTALL NEGATIVO17 NVIDIA FEDORA REPO & DRIVERS ---------------------" && \
     wget https://negativo17.org/repos/fedora-nvidia.repo -O /etc/yum.repos.d/fedora-nvidia.repo && \
     KERNEL_VERSION="$(rpm -qa kernel --queryformat '%{VERSION}-%{RELEASE}.%{ARCH}')" && \
-    rpm-ostree install nvidia-driver nvidia-driver-cuda kernel-devel-${KERNEL_VERSION} \
-                       /tmp/nvidia/kmod-nvidia-${KERNEL_VERSION}-*.rpm && \
+    rpm-ostree install nvidia-driver nvidia-driver-cuda \
+        /tmp/nvidia/kmod-nvidia-${KERNEL_VERSION}-*.rpm && \
     ln -s /usr/bin/ld.bfd /etc/alternatives/ld && ln -s /etc/alternatives/ld /usr/bin/ld && \
     rm -rf /tmp/nvidia /var/* && \
-    rpm-ostree override remove mesa-va-drivers && \
+    echo "INSTALL INTEL MEDIA DRIVERS -----------------------------------------" && \
     rpm-ostree install libva-intel-driver intel-media-driver && \
+    echo "INSTALL KDE COMPONENTS ----------------------------------------------" && \
     rpm-ostree install latte-dock && \
-    rpm-ostree install gnome-software && \
+    echo "INSTALLING OPENRGB --------------------------------------------------" && \
     rpm-ostree install openrgb && \
-    wget https://terra.fyralabs.com/terra.repo -O /etc/yum.repos.d/terra.repo && \
-    rpm-ostree install elementary-wallpapers && \
-    rm -rf var/log/akmods/akmods.log && \
     ostree container commit
