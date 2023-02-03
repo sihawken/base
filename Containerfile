@@ -1,6 +1,6 @@
 ARG FEDORA_MAJOR_VERSION=37
 
-FROM quay.io/fedora-ostree-desktops/kinoite:${FEDORA_MAJOR_VERSION} AS nvidia_builder
+FROM quay.io/fedora-ostree-desktops/kinoite-beta:${FEDORA_MAJOR_VERSION} AS nvidia_builder
 ARG FEDORA_MAJOR_VERSION
 
 # Build Nvidia driver kernel module
