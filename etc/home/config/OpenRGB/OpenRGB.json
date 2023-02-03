@@ -1046,7 +1046,7 @@
     "UserInterface": {
         "exit_profile": {
             "profile_name": "Backlight Off",
-            "set_on_exit": true
+            "set_on_exit": false
         },
         "geometry": {
             "height": 0,
