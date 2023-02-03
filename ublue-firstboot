@@ -10,6 +10,15 @@ echo "# Waiting for internet connection"
 until /usr/bin/ping -q -c 1 flathub.org; do sleep 1; done
 echo "00"
 
+echo "# Setting OpenRGB defaults"
+cp -r /usr/etc/home/config/OpenRGB/ ~/.config/OpenRGB ||:
+if [ "$?" != 0 ] ; then
+        zenity --error \
+          --text="Failed to copy the OpenRGB defaults to your home directory."
+        exit 1
+fi
+echo "2"
+
 echo "# Adding Flathub repository"
 /usr/bin/flatpak remote-add --if-not-exists --system flathub https://flathub.org/repo/flathub.flatpakrepo ||:
 if [ "$?" != 0 ] ; then
