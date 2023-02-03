@@ -19,7 +19,7 @@ if [ "$?" != 0 ] ; then
 fi
 echo "2"
 
-openrgb --startminimized --profile Default &
+gith &
 
 echo "# Adding Flathub repository"
 /usr/bin/flatpak remote-add --if-not-exists --user flathub https://flathub.org/repo/flathub.flatpakrepo ||:

@@ -17,6 +17,7 @@ ARG FEDORA_MAJOR_VERSION
 COPY --from=nvidia_builder /var/cache/akmods/nvidia /tmp/nvidia
 
 COPY etc /etc
+COPY usr/lib/systemd/system/openrgb.service /usr/lib/systemd/system/openrgb.service
 
 # Copy the first run zenety script
 COPY ublue-firstboot /usr/bin
@@ -44,4 +45,5 @@ RUN echo "INSTALLING BASE SYSTEM ----------------------------------------------"
     rpm-ostree install libva-intel-driver intel-media-driver && \
     echo "INSTALLING OPENRGB --------------------------------------------------" && \
     rpm-ostree install openrgb && \
+    systemctl daemon-reload && systemctl enable openrgb && \
     ostree container commit
