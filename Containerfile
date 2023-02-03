@@ -45,5 +45,5 @@ RUN echo "INSTALLING BASE SYSTEM ----------------------------------------------"
     rpm-ostree install libva-intel-driver intel-media-driver && \
     echo "INSTALLING OPENRGB --------------------------------------------------" && \
     rpm-ostree install openrgb && \
-    systemctl daemon-reload && systemctl enable openrgb && \
+    systemctl enable openrgb && \
     ostree container commit
