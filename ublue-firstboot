@@ -22,7 +22,7 @@ echo "2"
 openrgb --startminimized --profile Default &
 
 echo "# Adding Flathub repository"
-/usr/bin/flatpak remote-add --if-not-exists --system flathub https://flathub.org/repo/flathub.flatpakrepo ||:
+/usr/bin/flatpak remote-add --if-not-exists --user flathub https://flathub.org/repo/flathub.flatpakrepo ||:
 if [ "$?" != 0 ] ; then
         zenity --error \
           --text="Failed to add Flathub as a Flatpak repo."
@@ -48,7 +48,7 @@ fi
 echo "25"
 
 echo "# Installing Firefox"
-/usr/bin/flatpak install --system --noninteractive flathub org.mozilla.firefox
+/usr/bin/flatpak install --user --noninteractive flathub org.mozilla.firefox
 if [ "$?" != 0 ] ; then
         zenity --error \
           --text="Installing Firefox failed"
@@ -56,17 +56,8 @@ if [ "$?" != 0 ] ; then
 fi
 echo "30"
 
-echo "# Installing Thunderbird"
-/usr/bin/flatpak install --system --noninteractive flathub org.mozilla.Thunderbird
-if [ "$?" != 0 ] ; then
-        zenity --error \
-          --text="Installing Thunderbird failed"
-        exit 1
-fi
-echo "40"
-
 echo "# Installing Workspaces"
-/usr/bin/flatpak install --system --noninteractive flathub com.github.devalien.workspaces
+/usr/bin/flatpak install --user --noninteractive flathub com.github.devalien.workspaces
 if [ "$?" != 0 ] ; then
         zenity --error \
           --text="Installing Workspaces failed"
@@ -75,7 +66,7 @@ fi
 echo "60"
 
 echo "# Installing OnlyOffice"
-/usr/bin/flatpak install --system --noninteractive flathub org.onlyoffice.desktopeditors
+/usr/bin/flatpak install --user --noninteractive flathub org.onlyoffice.desktopeditors
 if [ "$?" != 0 ] ; then
         zenity --error \
           --text="Installing OnlyOffice failed"
@@ -84,7 +75,7 @@ fi
 echo "70"
 
 echo "# Installing Font Downloader"
-/usr/bin/flatpak install --system --noninteractive flathub org.gustavoperedo.FontDownloader
+/usr/bin/flatpak install --user --noninteractive flathub org.gustavoperedo.FontDownloader
 if [ "$?" != 0 ] ; then
         zenity --error \
           --text="Installing FontDownloader failed"
@@ -93,7 +84,7 @@ fi
 echo "85"
 
 echo "# Installing Flatseal"
-/usr/bin/flatpak install --system --noninteractive flathub com.github.tchx84.Flatseal
+/usr/bin/flatpak install --user --noninteractive flathub com.github.tchx84.Flatseal
 if [ "$?" != 0 ] ; then
         zenity --error \
           --text="Installing Flatseal failed"
@@ -102,7 +93,7 @@ fi
 echo "90"
 
 echo "# Installing Popsicle USB Flasher"
-/usr/bin/flatpak install --system --noninteractive flathub com.system76.Popsicle
+/usr/bin/flatpak install --user --noninteractive flathub com.system76.Popsicle
 if [ "$?" != 0 ] ; then
         zenity --error \
           --text="Installing System76 Popsicle failed"
@@ -111,7 +102,7 @@ fi
 echo "95"
 
 echo "# Installing Celluloid Media Player"
-/usr/bin/flatpak install --system --noninteractive flathub io.github.celluloid_player.Celluloid
+/usr/bin/flatpak install --user --noninteractive flathub io.github.celluloid_player.Celluloid
 if [ "$?" != 0 ] ; then
         zenity --error \
           --text="Installing Celluloid failed"
@@ -126,7 +117,7 @@ cp -n /etc/justfile "$HOME"/.justfile
 
 ) | 
      
-   zenity --progress --title="uBlue Desktop Firstboot" --percentage=0 --auto-close --no-cancel --width=300
+   zenity --progress --title="Kinoite MSI Stealth 15m Desktop Firstboot" --percentage=0 --auto-close --no-cancel --width=300
 
 if [ "$?" != 0 ] ; then
         zenity --error \
