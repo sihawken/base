@@ -4,7 +4,7 @@ if test -e "$HOME"/.config/ublue/firstboot-done; then
     echo "Already ran"
     exit 0
 fi
-
+w
 (
 echo "# Waiting for internet connection"
 until /usr/bin/ping -q -c 1 flathub.org; do sleep 1; done
@@ -19,7 +19,7 @@ if [ "$?" != 0 ] ; then
 fi
 echo "2"
 
-openrgb &
+openrgb --startminimized --profile Default &
 
 echo "# Adding Flathub repository"
 /usr/bin/flatpak remote-add --if-not-exists --system flathub https://flathub.org/repo/flathub.flatpakrepo ||:
