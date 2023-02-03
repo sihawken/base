@@ -4,8 +4,6 @@ Description=OpenRGB control
 [Service]
 Type=oneshot
 ExecStart=/usr/bin/openrgb --server
-User=root
-Group=i2c
 
 [Install]
 WantedBy=multi-user.target
