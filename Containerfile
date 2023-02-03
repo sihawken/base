@@ -1,6 +1,6 @@
 ARG FEDORA_MAJOR_VERSION=37
 
-FROM quay.io/fedora-ostree-desktops/kinoite-beta:${FEDORA_MAJOR_VERSION} AS nvidia_builder
+FROM quay.io/fedora-ostree-desktops/kinoite:${FEDORA_MAJOR_VERSION} AS nvidia_builder
 ARG FEDORA_MAJOR_VERSION
 
 # Build Nvidia driver kernel module
@@ -10,7 +10,7 @@ RUN wget https://negativo17.org/repos/fedora-nvidia.repo -O /etc/yum.repos.d/fed
     ln -s /usr/bin/ld.bfd /etc/alternatives/ld && ln -s /etc/alternatives/ld /usr/bin/ld && \
     akmods --force --kernels "$(rpm -qa kernel --queryformat '%{VERSION}-%{RELEASE}.%{ARCH}')"
 
-FROM quay.io/fedora-ostree-desktops/kinoite-beta:${FEDORA_MAJOR_VERSION} AS system_image
+FROM quay.io/fedora-ostree-desktops/kinoite:${FEDORA_MAJOR_VERSION} AS system_image
 ARG FEDORA_MAJOR_VERSION
  
 # Copy the Nvidia driver kernel module from nvidia_builder
