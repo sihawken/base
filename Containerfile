@@ -44,8 +44,6 @@ RUN echo "INSTALLING BASE SYSTEM ----------------------------------------------"
         --install=ffmpeg-libs --install=ffmpeg --install=libavcodec-freeworld && \
     echo "INSTALL INTEL MEDIA DRIVERS -----------------------------------------" && \
     rpm-ostree install libva-intel-driver intel-media-driver && \
-    echo "INSTALL KDE COMPONENTS ----------------------------------------------" && \
-    rpm-ostree install latte-dock && \
     echo "INSTALLING OPENRGB --------------------------------------------------" && \
     rpm-ostree install openrgb && \
     ostree container commit
