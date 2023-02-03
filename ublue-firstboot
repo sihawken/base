@@ -101,6 +101,15 @@ if [ "$?" != 0 ] ; then
 fi
 echo "90"
 
+echo "# Installing Popsicle USB Flasher"
+/usr/bin/flatpak install --system --noninternactive flathub com.system76.Popsicle
+if [ "$?" != 0 ] ; then
+        zenity --error \
+          --text="Installing System76 Popsicle failed"
+        exit 1
+fi
+echo "95"
+
 echo "# Installing Celluloid Media Player"
 /usr/bin/flatpak install --system --noninteractive flathub io.github.celluloid_player.Celluloid
 if [ "$?" != 0 ] ; then
