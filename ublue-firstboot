@@ -101,11 +101,20 @@ if [ "$?" != 0 ] ; then
 fi
 echo "95"
 
-echo "# Installing Popsicle USB Flasher"
-/usr/bin/flatpak install --user --noninteractive flathub com.system76.Popsicle
+echo "# Installing Solanum"
+/usr/bin/flatpak install --user --noninteractive flathub com.github.junrrein.PDFSlicer
 if [ "$?" != 0 ] ; then
         zenity --error \
-          --text="Installing System76 Popsicle failed"
+          --text="Installing PDF Slicer failed"
+        exit 1
+fi
+echo "99"
+
+echo "# Installing Popsicle USB Flasher"
+/usr/bin/flatpak install --user --noninteractive flathub org.gnome.Solanum
+if [ "$?" != 0 ] ; then
+        zenity --error \
+          --text="Installing Solanum failed"
         exit 1
 fi
 echo "100"
