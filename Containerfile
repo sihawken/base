@@ -30,8 +30,6 @@ RUN echo "INSTALLING BASE SYSTEM ----------------------------------------------"
     echo "INSTALLING RPM-FUSION REPOS -----------------------------------------" && \
     rpm-ostree install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-${FEDORA_MAJOR_VERSION}.noarch.rpm \
         https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-${FEDORA_MAJOR_VERSION}.noarch.rpm && \
-    echo "INSTALLING FYRALABS TERRA REPO --------------------------------------" && \
-    wget https://terra.fyralabs.com/terra.repo -O /etc/yum.repos.d/terra.repo && \
     echo "INSTALL NEGATIVO17 NVIDIA FEDORA REPO & DRIVERS ---------------------" && \
     wget https://negativo17.org/repos/fedora-nvidia.repo -O /etc/yum.repos.d/fedora-nvidia.repo && \
     KERNEL_VERSION="$(rpm -qa kernel --queryformat '%{VERSION}-%{RELEASE}.%{ARCH}')" && \
