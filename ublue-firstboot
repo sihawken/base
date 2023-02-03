@@ -11,7 +11,7 @@ until /usr/bin/ping -q -c 1 flathub.org; do sleep 1; done
 echo "00"
 
 echo "# Setting OpenRGB defaults"
-cp -r /usr/etc/home/config/OpenRGB/ ~/.config/OpenRGB ||:
+cp -r -f /usr/etc/home/config/OpenRGB/ ~/.config/ ||:
 if [ "$?" != 0 ] ; then
         zenity --error \
           --text="Failed to copy the OpenRGB defaults to your home directory."
