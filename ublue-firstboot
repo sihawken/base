@@ -19,6 +19,8 @@ if [ "$?" != 0 ] ; then
 fi
 echo "2"
 
+openrgb &
+
 echo "# Adding Flathub repository"
 /usr/bin/flatpak remote-add --if-not-exists --system flathub https://flathub.org/repo/flathub.flatpakrepo ||:
 if [ "$?" != 0 ] ; then
