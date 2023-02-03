@@ -39,6 +39,9 @@ RUN echo "INSTALLING BASE SYSTEM ----------------------------------------------"
         /tmp/nvidia/kmod-nvidia-${KERNEL_VERSION}-*.rpm && \
     ln -s /usr/bin/ld.bfd /etc/alternatives/ld && ln -s /etc/alternatives/ld /usr/bin/ld && \
     rm -rf /tmp/nvidia /var/* && \
+    echo "INSTALL FFMEG DRIVERS -----------------------------------------------" && \
+    RUN rpm-ostree override remove libavutil-free libswscale-free libswresample-free libavformat-free libavcodec-free libavfilter-free libpostproc-free \
+        --install=ffmpeg-libs --install=ffmpeg --install=libavcodec-freeworld && \
     echo "INSTALL INTEL MEDIA DRIVERS -----------------------------------------" && \
     rpm-ostree install libva-intel-driver intel-media-driver && \
     echo "INSTALL KDE COMPONENTS ----------------------------------------------" && \
