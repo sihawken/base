@@ -102,7 +102,7 @@ fi
 echo "90"
 
 echo "# Installing Popsicle USB Flasher"
-/usr/bin/flatpak install --system --noninternactive flathub com.system76.Popsicle
+/usr/bin/flatpak install --system --noninteractive flathub com.system76.Popsicle
 if [ "$?" != 0 ] ; then
         zenity --error \
           --text="Installing System76 Popsicle failed"
