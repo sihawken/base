@@ -3,7 +3,7 @@ Description=OpenRGB control
 
 [Service]
 Type=oneshot
-ExecStart=/usr/bin/openrgb --server
+ExecStart=/usr/bin/openrgb --server --verbose
 
 [Install]
 WantedBy=multi-user.target
