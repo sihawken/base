@@ -39,7 +39,7 @@ echo "System migrated. Reboot to run the new image."
 
 read -r -p "Do you wish to reboot now? [y/N]" rebootresponse
 
-if [[ ! $rebootresponse =~ ^[Yy]$ ]]; then
+if [[ $rebootresponse =~ ^[Yy]$ ]]; then
     echo "Rebooting in 5 seconds..."
     sleep 5
     systemctl reboot
