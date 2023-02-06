@@ -26,8 +26,7 @@ else
 fi
 
 read -r -p "WARNING: Rebasing to ${IMG_NAME} will delete all preinstalled flatpaks. This script is meant to only be used on a new Kinoite or Silverblue install. Do you wish to continue? [y/N]" response
-if [[ ! $response =~ ^[Yy]$ ]]
-then
+if [[ ! $response =~ ^[Yy]$ ]]; then
     echo "Confirmation not recieved. System will not be migrated."
     exit 1
 fi
