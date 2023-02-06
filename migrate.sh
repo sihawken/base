@@ -33,7 +33,10 @@ fi
 
 echo "Migrating to ${IMG_NAME}. Running rpm-ostree rebase && setting the kernel arguments."
 
-pkexec sh -c "rpm-ostree rebase --experimental ${IMG}; rpm-ostree kargs --append=rd.driver.blacklist=nouveau --append=modprobe.blacklist=nouveau --append=nvidia-drm.modeset=1 --append=nvidia.NVreg_DynamicPowerManagement=0x02 --append=nvidia.NVreg_DynamicPowerManagementVideoMemoryThreshold=200"
+RUNSCRIPT="RET=1; until [ \${RET} -eq 0 ]; do rpm-ostree rebase --experimental ${IMG}; RET=\$?; if [[ ! \$RET = 0 ]]; then read -r -p 'Rebasing failed. Do you want to try again? [y/N]: ' retryresponse; if [[ ! \$retryresponse =~ ^[Yy]$ ]]; then exit 1; fi; fi; done; rpm-ostree kargs --append=rd.driver.blacklist=nouveau --append=modprobe.blacklist=nouveau --append=nvidia-drm.modeset=1 --append=nvidia.NVreg_DynamicPowerManagement=0x02 --append=nvidia.NVreg_DynamicPowerManagementVideoMemoryThreshold=200"
+
+pkexec /bin/bash -c "${RUNSCRIPT}"
+
 
 echo "System migrated. Reboot to run the new image."
 
