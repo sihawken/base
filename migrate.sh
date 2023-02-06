@@ -21,7 +21,7 @@ if [ "${OS}" = "Fedora Linux" ] && [ "${VAR}" = "Kinoite" ]; then
 elif [ "${OS}" = "Fedora Linux" ] && [ "${VAR}" = "Silverblue" ]; then
     echo "System is running Fedora Silverblue. Ready to rebase to: ${IMG_NAME}."
 else 
-    echo "Host system is neither Fedora Siverblue or Fedora Kinoite. This script only supports migrating from these two systems. Please install Fedora Silverblue or Fedora Kinoite and run the script again."
+    echo "Host system is neither Fedora Silverblue or Fedora Kinoite. This script only supports migrating from these two systems. Please install Fedora Silverblue or Fedora Kinoite and run the script again."
     exit 1
 fi
 
