@@ -25,7 +25,7 @@ else
     exit 1
 fi
 
-read -r -p "WARNING: Rebasing to ${IMG_NAME} will delete all preinstalled flatpaks. This script is meant to only be used on a new Kinoite or Silverblue install. Do you wish to continue? [y/N]" migrationresponse
+read -r -p "WARNING: Rebasing to ${IMG_NAME} will delete all preinstalled flatpaks. This script is meant to only be used on a new Kinoite or Silverblue install. Do you wish to continue? [y/N]: " migrationresponse
 if [[ ! $migrationresponse =~ ^[Yy]$ ]]; then
     echo "Confirmation not recieved. System will not be migrated."
     exit 1
@@ -37,7 +37,7 @@ pkexec sh -c "rpm-ostree rebase --experimental ${IMG}; rpm-ostree kargs --append
 
 echo "System migrated. Reboot to run the new image."
 
-read -r -p "Do you wish to reboot now? [y/N]" rebootresponse
+read -r -p "Do you wish to reboot now? [y/N]: " rebootresponse
 
 if [[ $rebootresponse =~ ^[Yy]$ ]]; then
     echo "Rebooting in 5 seconds..."
