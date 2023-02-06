@@ -33,4 +33,4 @@ fi
 
 echo "Migrating to ${IMG_NAME}. Running rpm-ostree rebase && setting the kernel arguments."
 
-pkexec sh -c "rpm-ostree rebase --experimental ${IMG} && rpm-ostree kargs --append=rd.driver.blacklist=nouveau --append=modprobe.blacklist=nouveau --append=nvidia-drm.modeset=1 --append=nvidia.NVreg_DynamicPowerManagement=0x02 --append=nvidia.NVreg_DynamicPowerManagementVideoMemoryThreshold=200 && systemctl reboot"
+pkexec sh -c "rpm-ostree rebase --experimental ${IMG}; rpm-ostree kargs --append=rd.driver.blacklist=nouveau --append=modprobe.blacklist=nouveau --append=nvidia-drm.modeset=1 --append=nvidia.NVreg_DynamicPowerManagement=0x02 --append=nvidia.NVreg_DynamicPowerManagementVideoMemoryThreshold=200; systemctl reboot"
