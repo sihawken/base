@@ -32,6 +32,9 @@ ARG FEDORA_MAJOR_VERSION
 # Copy the Nvidia driver kernel module from nvidia_builder
 COPY --from=nvidia_builder /var/cache/akmods/nvidia /tmp/nvidia
 
+# Copy the built RPM from rpm_builder
+COPY --from=rpm_builder /openrgb-service-1-1.noarch.rpm /tmp/openrgb-service/openrgb-service-1-1.noarch.rpm
+
 COPY etc /etc
 COPY usr/lib/systemd/system/openrgb.service /usr/lib/systemd/system/openrgb.service
 
@@ -61,5 +64,7 @@ RUN echo "INSTALLING BASE SYSTEM ----------------------------------------------"
     rpm-ostree install libva-intel-driver intel-media-driver && \
     echo "INSTALLING OPENRGB --------------------------------------------------" && \
     rpm-ostree install openrgb && \
+    rpm-ostree install /tmp/openrgb-service/openrgb-service-1-1.noarch.rpm && \
+    rm -rf /tmp/openrgb-service && \
     systemctl enable openrgb && \
     ostree container commit
