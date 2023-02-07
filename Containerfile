@@ -1,7 +1,7 @@
 ARG FEDORA_MAJOR_VERSION=37
 
-FROM registry.hub.docker.com/library/fedora:37 AS rpm_builder
-RUN yum -y install ruby
+FROM registry.hub.docker.com/library/fedora:${FEDORA_MAJOR_VERSION} AS rpm_builder
+RUN yum -y install ruby rpm-build squashfs-tools
 RUN gem install fpm
 
 FROM quay.io/fedora-ostree-desktops/kinoite:${FEDORA_MAJOR_VERSION} AS nvidia_builder
