@@ -1,8 +1,9 @@
 ARG FEDORA_MAJOR_VERSION=37
 
 FROM registry.hub.docker.com/library/fedora:${FEDORA_MAJOR_VERSION} AS rpm_builder
+WORKDIR /usr/src/openrgb-service/
 
-COPY usr/lib/systemd/system/openrgb.service /usr/lib/systemd/system/openrgb.service
+COPY usr/lib/systemd/system/openrgb.service /usr/src/openrgb-service/openrgb.service
 
 RUN yum -y install ruby rpm-build squashfs-tools
 RUN gem install fpm
