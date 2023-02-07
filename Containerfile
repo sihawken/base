@@ -1,5 +1,9 @@
 ARG FEDORA_MAJOR_VERSION=37
 
+FROM registry.hub.docker.com/library/fedora:37 AS rpm_builder
+RUN yum install ruby
+RUN gem install fpm
+
 FROM quay.io/fedora-ostree-desktops/kinoite:${FEDORA_MAJOR_VERSION} AS nvidia_builder
 ARG FEDORA_MAJOR_VERSION
 
