@@ -10,7 +10,7 @@ RUN fpm \
     -s dir -t rpm \
     --name openrgb-service \
     --version 1 \
-    --architechture all \
+    --architecture all \
     --depends openrgb \
     --depends systemd \
     --description "Adds the required service file to systemd for OpenRGB to run as daemon" \
