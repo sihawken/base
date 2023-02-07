@@ -1,9 +1,8 @@
 ARG FEDORA_MAJOR_VERSION=37
 
 FROM registry.hub.docker.com/library/fedora:${FEDORA_MAJOR_VERSION} AS rpm_builder
-WORKDIR /usr/src/openrgb-service/
 
-COPY usr/lib/systemd/system/openrgb.service /usr/src/openrgb-service/openrgb.service
+COPY usr/lib/systemd/system/openrgb.service /usr/lib/systemd/system/openrgb.service
 
 RUN yum -y install ruby rpm-build squashfs-tools
 RUN gem install fpm
@@ -15,7 +14,7 @@ RUN fpm \
     --depends openrgb \
     --depends systemd \
     --description "Adds the required service file to systemd for OpenRGB to run as daemon" \
-    openrgb-service=/usr/lib/systemd/system/openrgb.service
+    /usr/lib/systemd/system/openrgb.service=/usr/lib/systemd/system/openrgb.service
 
 FROM quay.io/fedora-ostree-desktops/kinoite:${FEDORA_MAJOR_VERSION} AS nvidia_builder
 ARG FEDORA_MAJOR_VERSION
