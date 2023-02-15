@@ -53,7 +53,7 @@ RUN echo "INSTALLING BASE SYSTEM ----------------------------------------------"
     echo "INSTALL NEGATIVO17 NVIDIA FEDORA REPO & DRIVERS ---------------------" && \
     wget https://negativo17.org/repos/fedora-nvidia.repo -O /etc/yum.repos.d/fedora-nvidia.repo && \
     KERNEL_VERSION="$(rpm -qa kernel --queryformat '%{VERSION}-%{RELEASE}.%{ARCH}')" && \
-    rpm-ostree install nvidia-driver nvidia-driver-cuda \
+    rpm-ostree install nvidia-driver nvidia-driver-cuda nvenc nvidia-driver-NvFBCOpenGL \
         /tmp/nvidia/kmod-nvidia-${KERNEL_VERSION}-*.rpm && \
     ln -s /usr/bin/ld.bfd /etc/alternatives/ld && ln -s /etc/alternatives/ld /usr/bin/ld && \
     rm -rf /tmp/nvidia /var/* && \
