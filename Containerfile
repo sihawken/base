@@ -35,7 +35,7 @@ RUN echo "INSTALLING BASE SYSTEM ----------------------------------------------"
     sed -i 's/#AutomaticUpdatePolicy.*/AutomaticUpdatePolicy=stage/' /etc/rpm-ostreed.conf && \
     systemctl enable rpm-ostreed-automatic.timer && \
     echo "INSTALLING CODEC DRIVERS --------------------------------------------" && \
-    rpm-ostree override remove libavutil-free libswscale-free libswresample-free libavformat-free libavfilter-free libpostproc-free \
+    rpm-ostree override remove libavutil-free libswscale-free libswresample-free libpostproc-free \
         --install=ffmpeg-libs --install=ffmpeg --install=libavcodec-freeworld && \
     echo "INSTALLING INTEL MEDIA DRIVERS --------------------------------------" && \
     rpm-ostree install libva-intel-driver intel-media-driver && \
