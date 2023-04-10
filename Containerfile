@@ -16,17 +16,7 @@ RUN fpm \
     --description "Adds the required service file to systemd for OpenRGB to run as daemon" \
     /usr/lib/systemd/system/openrgb.service=/usr/lib/systemd/system/openrgb.service
 
-FROM quay.io/fedora-ostree-desktops/kinoite:${FEDORA_MAJOR_VERSION} AS nvidia_builder
-ARG FEDORA_MAJOR_VERSION
-
-# Build Nvidia driver kernel module
-RUN wget https://negativo17.org/repos/fedora-nvidia.repo -O /etc/yum.repos.d/fedora-nvidia.repo && \
-    rpm-ostree install mock nvidia-driver nvidia-driver-cuda binutils \
-                       kernel-devel-$(rpm -qa kernel --queryformat '%{VERSION}-%{RELEASE}.%{ARCH}') && \
-    ln -s /usr/bin/ld.bfd /etc/alternatives/ld && ln -s /etc/alternatives/ld /usr/bin/ld && \
-    akmods --force --kernels "$(rpm -qa kernel --queryformat '%{VERSION}-%{RELEASE}.%{ARCH}')"
-
-FROM quay.io/fedora-ostree-desktops/kinoite:${FEDORA_MAJOR_VERSION} AS system_image
+FROM ghcr.io/ublue-os/kinoite-nvidia:latest AS system_image
 ARG FEDORA_MAJOR_VERSION
  
 # Copy the Nvidia driver kernel module from nvidia_builder
