@@ -16,7 +16,7 @@ RUN fpm \
     --description "Adds the required service file to systemd for OpenRGB to run as daemon" \
     /usr/lib/systemd/system/openrgb.service=/usr/lib/systemd/system/openrgb.service
 
-FROM ghcr.io/ublue-os/kinoite-nvidia:latest AS system_image
+FROM ghcr.io/ublue-os/kinoite-nvidia:${FEDORA_MAJOR_VERSION} AS system_image
 ARG FEDORA_MAJOR_VERSION
 
 # Copy the built RPM from rpm_builder
