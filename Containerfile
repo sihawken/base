@@ -34,9 +34,6 @@ RUN echo "INSTALLING BASE SYSTEM ----------------------------------------------"
     rpm-ostree install kernel-devel kernel-devel-matched && \
     sed -i 's/#AutomaticUpdatePolicy.*/AutomaticUpdatePolicy=stage/' /etc/rpm-ostreed.conf && \
     systemctl enable rpm-ostreed-automatic.timer && \
-    echo "INSTALLING CODEC DRIVERS --------------------------------------------" && \
-    rpm-ostree install ffmpeg ffmpeg-libs gstreamer1-libav \
-    gstreamer1-plugin-openh264 gstreamer1-plugins-bad-freeworld gstreamer1-plugins-ugly && \
     echo "INSTALLING INTEL MEDIA DRIVERS --------------------------------------" && \
     rpm-ostree install libva-intel-driver intel-media-driver && \
     echo "INSTALLING KDE ADD-ONS ----------------------------------------------" && \
