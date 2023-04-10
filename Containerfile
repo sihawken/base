@@ -18,9 +18,6 @@ RUN fpm \
 
 FROM ghcr.io/ublue-os/kinoite-nvidia:latest AS system_image
 ARG FEDORA_MAJOR_VERSION
- 
-# Copy the Nvidia driver kernel module from nvidia_builder
-COPY --from=nvidia_builder /var/cache/akmods/nvidia /tmp/nvidia
 
 # Copy the built RPM from rpm_builder
 COPY --from=rpm_builder /openrgb-service-1-1.noarch.rpm /tmp/openrgb-service/openrgb-service-1-1.noarch.rpm
@@ -40,13 +37,6 @@ RUN echo "INSTALLING BASE SYSTEM ----------------------------------------------"
     echo "INSTALLING RPM-FUSION REPOS -----------------------------------------" && \
     rpm-ostree install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-${FEDORA_MAJOR_VERSION}.noarch.rpm \
         https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-${FEDORA_MAJOR_VERSION}.noarch.rpm && \
-    echo "INSTALLING NEGATIVO17 NVIDIA FEDORA REPO & DRIVERS ------------------" && \
-    wget https://negativo17.org/repos/fedora-nvidia.repo -O /etc/yum.repos.d/fedora-nvidia.repo && \
-    KERNEL_VERSION="$(rpm -qa kernel --queryformat '%{VERSION}-%{RELEASE}.%{ARCH}')" && \
-    rpm-ostree install nvidia-driver nvidia-driver-cuda nvenc nvidia-driver-NvFBCOpenGL \
-        /tmp/nvidia/kmod-nvidia-${KERNEL_VERSION}-*.rpm && \
-    ln -s /usr/bin/ld.bfd /etc/alternatives/ld && ln -s /etc/alternatives/ld /usr/bin/ld && \
-    rm -rf /tmp/nvidia /var/* && \
     echo "INSTALLING CODEC DRIVERS --------------------------------------------" && \
     rpm-ostree override remove libavutil-free libswscale-free libswresample-free libavformat-free libavcodec-free libavfilter-free libpostproc-free \
         --install=ffmpeg-libs --install=ffmpeg --install=libavcodec-freeworld && \
