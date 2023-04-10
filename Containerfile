@@ -34,9 +34,6 @@ RUN echo "INSTALLING BASE SYSTEM ----------------------------------------------"
     rpm-ostree install kernel-devel kernel-devel-matched && \
     sed -i 's/#AutomaticUpdatePolicy.*/AutomaticUpdatePolicy=stage/' /etc/rpm-ostreed.conf && \
     systemctl enable rpm-ostreed-automatic.timer && \
-    echo "INSTALLING RPM-FUSION REPOS -----------------------------------------" && \
-    rpm-ostree install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-${FEDORA_MAJOR_VERSION}.noarch.rpm \
-        https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-${FEDORA_MAJOR_VERSION}.noarch.rpm && \
     echo "INSTALLING CODEC DRIVERS --------------------------------------------" && \
     rpm-ostree override remove libavutil-free libswscale-free libswresample-free libavformat-free libavcodec-free libavfilter-free libpostproc-free \
         --install=ffmpeg-libs --install=ffmpeg --install=libavcodec-freeworld && \
