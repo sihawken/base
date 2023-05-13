@@ -1,7 +1,7 @@
-# Kinoite for the MSI Stealth 15m
-
 > **Warning**
-> This image is still undergoing big changes, and is not guaranteed to be stable. Do not use on a production machine _yet_.
+> This project is now archived. My primary laptop is now a framework laptop.
+
+# Kinoite for the MSI Stealth 15m
 
 This is a build of kinoite specifically designed to support the MSI Stealth 15m.
 
